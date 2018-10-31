@@ -1,5 +1,31 @@
 <template>
-	<div class="session-wrapper">
+ <div class="login-flex">
+	 <div class="login">
+		  <h3 style="padding: 0px 0px; margin-bottom: 40px; font-size: 25px; font-weight: bold"> Bitnob Login</h3>
+		 <v-card class="login-card">
+			 <p class="login-msg">Login to your bitnob account</p>
+			 <v-text-field 
+			    prepend-icon="email"
+					label="E-mail" 
+					v-model="email" 
+					:rules="emailRules" 
+					required
+				></v-text-field>
+				<v-text-field
+				  prepend-icon="lock" 
+					label="Password" 
+					v-model="password" 
+				  type="password" 
+					:rules="passwordRules" 
+					required
+				></v-text-field>
+				<v-btn block class="login-btn">Login <v-icon>check</v-icon> </v-btn>
+		 </v-card>	
+		  <center><router-link to="/" class="f-link"><h3>Forgot Password?</h3></router-link></center>
+			<center>Don't have an account? <router-link to="/" class="f-link"><h3>Create One</h3></router-link></center>
+	 </div>	
+ </div>
+	<!--<div class="session-wrapper">
 		<div class="session-left">
 			<session-slider-widget></session-slider-widget>
 		</div>
@@ -74,7 +100,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </template>
 
 <script>
@@ -140,3 +166,37 @@ export default {
   }
 };
 </script>
+<style scoped>
+.login-flex {
+	display: flex;
+	height: 100vh;
+	background:#475069;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+.login {
+	width: 430px;
+	padding: 10px !important;
+}
+.login-card {
+	padding: 50px 30px;
+}
+.login-btn {
+	margin-top: 10px;
+	color: #475069;
+}
+.login-msg {
+	color: #475069;
+	font-size: 15px;
+	font-kerning: unset;
+	font-weight: 400;
+	padding: 10px;
+	
+}
+.f-link {
+	color: white !important;
+	margin-top: 15px;
+}
+</style>
+

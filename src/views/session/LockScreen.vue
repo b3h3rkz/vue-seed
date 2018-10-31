@@ -7,7 +7,6 @@
             <router-link to="/" class="d-block text-xs-center">
               <img src="/static/img/session.png" class="img-responsive mb-3" width="78" height="78" />
             </router-link>
-            </p>
           </div>
           <div class="lock-screen-block text-xs-center">
             <div class="s-user mb-4">
