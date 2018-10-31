@@ -1,5 +1,42 @@
 <template>
-	<div class="session-wrapper">
+  <div class="login-flex">
+	 <div class="login">
+		  <h3 style="padding: 0px 0px; margin-bottom: 25px; margin-top: 30px; font-size: 25px; font-weight: bold"> Bitnob Signup</h3>
+		 <v-card class="login-card">
+			 <p class="login-msg">Sign up for a <strong> Bitnob </strong> account</p>
+			 <v-text-field 
+			    prepend-icon="person"
+					label="First Name" 
+					required
+				></v-text-field>
+				<v-text-field 
+			    prepend-icon="person"
+					label="Last Name" 
+					required
+				></v-text-field>
+				<v-text-field 
+			    prepend-icon="email"
+					label="Email" 
+					required
+				></v-text-field>
+				<v-select 
+			    prepend-icon="flag"
+					label="Country" 
+					required
+				></v-select>
+				<v-text-field
+				  prepend-icon="lock" 
+					label="Password" 
+				  type="password"
+					required
+				></v-text-field>
+				<small><input type="checkbox" style="width: 10px; height: 10px; padding: 0px 0px !important; margin-top: 0px !important"> &nbsp; I Agree to Follow Terms and Privacy Policy</small>
+				<v-btn block class="login-btn">Sign up<v-icon>check</v-icon> </v-btn>
+		 </v-card>	
+			<center>Already have an account? <router-link to="/" class="f-link"><h3>Sign In</h3></router-link></center>
+	 </div>	
+ </div>
+	<!--<div class="session-wrapper">
 		<div class="session-left">
 			<session-slider-widget></session-slider-widget>
 		</div>
@@ -68,7 +105,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </template>
 
 <script>
@@ -137,3 +174,39 @@ export default {
   }
 };
 </script>
+<style scoped>
+:root {
+	--background-color: #475069;
+}
+.login-flex {
+	display: flex;
+	height: 100%;
+	background: var(--background-color);
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+.login {
+	width: 430px;
+	padding: 10px !important;
+}
+.login-card {
+	padding: 20px 30px;
+}
+.login-btn {
+	margin-top: 10px;
+	color: #475069;
+}
+.login-msg {
+	color: #475069;
+	font-size: 15px;
+	font-kerning: unset;
+	font-weight: 400;
+	padding: 10px;
+	
+}
+.f-link {
+	color: white !important;
+	margin-top: 15px;
+}
+</style>

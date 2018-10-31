@@ -3,7 +3,7 @@
 	 <div class="login">
 		  <h3 style="padding: 0px 0px; margin-bottom: 40px; font-size: 25px; font-weight: bold"> Bitnob Login</h3>
 		 <v-card class="login-card">
-			 <p class="login-msg">Login to your bitnob account</p>
+			 <p class="login-msg">Login to your <strong> Bitnob account </strong> </p>
 			 <v-text-field 
 			    prepend-icon="email"
 					label="E-mail" 
@@ -167,10 +167,13 @@ export default {
 };
 </script>
 <style scoped>
+:root {
+	--background-color: #475069;
+}
 .login-flex {
 	display: flex;
 	height: 100vh;
-	background:#475069;
+	background: var(--background-color);
 	align-items: center;
 	justify-content: center;
 	color: white;
