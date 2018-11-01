@@ -6,7 +6,7 @@
 			 <p class="login-msg">Login to your <strong> Bitnob account </strong> </p>
 			 <v-text-field 
 			    prepend-icon="email"
-					label="E-mail" 
+					label="Email" 
 					v-model="email" 
 					:rules="emailRules" 
 					required
@@ -21,8 +21,8 @@
 				></v-text-field>
 				<v-btn block class="login-btn">Login <v-icon>check</v-icon> </v-btn>
 		 </v-card>	
-		  <center><router-link to="/" class="f-link"><h3>Forgot Password?</h3></router-link></center>
-			<center>Don't have an account? <router-link to="/" class="f-link"><h3>Create One</h3></router-link></center>
+		  <center><router-link to="/session/forgot-password" class="f-link"><h3>Forgot Password?</h3></router-link></center>
+			<center>Don't have an account? <router-link to="/session/sign-up" class="f-link"><h3>Create One</h3></router-link></center>
 	 </div>	
  </div>
 	<!--<div class="session-wrapper">

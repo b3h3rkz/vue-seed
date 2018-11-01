@@ -59,7 +59,7 @@ export default new Router({
 			path: '/session/forgot-password',
 			component: ForgotPassword,
 			meta: {
-				title: 'Forgot Passwprd',
+				title: 'Forgot Password',
 				breadcrumb: 'Session / Forgot Password'
 			}
 		},

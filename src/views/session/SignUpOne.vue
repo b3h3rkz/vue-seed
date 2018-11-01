@@ -33,7 +33,7 @@
 				<small><input type="checkbox" style="width: 10px; height: 10px; padding: 0px 0px !important; margin-top: 0px !important"> &nbsp; I Agree to Follow Terms and Privacy Policy</small>
 				<v-btn block class="login-btn">Sign up<v-icon>check</v-icon> </v-btn>
 		 </v-card>	
-			<center>Already have an account? <router-link to="/" class="f-link"><h3>Sign In</h3></router-link></center>
+			<center>Already have an account? <router-link to="/session/login" class="f-link"><h3>Sign In</h3></router-link></center>
 	 </div>	
  </div>
 	<!--<div class="session-wrapper">
