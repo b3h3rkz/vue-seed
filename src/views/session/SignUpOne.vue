@@ -8,30 +8,41 @@
 			    prepend-icon="person"
 					label="First Name" 
 					required
+					v-model="user.first_name"
+					:rules="nameRules"
 				></v-text-field>
 				<v-text-field 
 			    prepend-icon="person"
 					label="Last Name" 
 					required
+					v-model="user.last_name"
+					:rules="nameRules"
 				></v-text-field>
 				<v-text-field 
 			    prepend-icon="email"
 					label="Email" 
 					required
+					v-model="user.email"
 				></v-text-field>
 				<v-select 
 			    prepend-icon="flag"
 					label="Country" 
 					required
+					item-value="id"
+          item-text="name"
+					v-model="user.country"
+					:rules="[v => !!v || 'Country is required']"
 				></v-select>
 				<v-text-field
 				  prepend-icon="lock" 
 					label="Password" 
 				  type="password"
 					required
+					v-model="user.password1"
+					:rules="passwordRules"
 				></v-text-field>
 				<small><input type="checkbox" style="width: 10px; height: 10px; padding: 0px 0px !important; margin-top: 0px !important"> &nbsp; I Agree to Follow Terms and Privacy Policy</small>
-				<v-btn block class="login-btn">Sign up<v-icon>check</v-icon> </v-btn>
+				<v-btn block class="login-btn"  @click="submit">Sign up<v-icon>check</v-icon> </v-btn>
 		 </v-card>	
 			<center>Already have an account? <router-link to="/session/login" class="f-link"><h3>Sign In</h3></router-link></center>
 	 </div>	
@@ -111,6 +122,7 @@
 <script>
 import SessionSliderWidget from "Components/Widgets/SessionSlider";
 import AppConfig from "Constants/AppConfig";
+import axiosQueries from "../../axiosQueries";
 
 export default {
   components: {
@@ -118,7 +130,19 @@ export default {
   },
   data() {
     return {
-      valid: false,
+			valid: false,
+			error: false,
+      success: false,
+      errorMsg: null,
+      successMsg: null,
+      user: {
+        first_name: "",
+        last_name: "",
+        country: "",
+        username: "",
+        email: "",
+        password1: ""
+      },
       name: "",
       nameRules: [
         v => !!v || "Name is required",
@@ -134,43 +158,47 @@ export default {
       password: "",
       passwordRules: [v => !!v || "Password is required"],
       appLogo: AppConfig.appLogo2,
-      brand: AppConfig.brand
+      brand: AppConfig.brand,
+			countries: []
     };
+  },
+	 created() {
+    axiosQueries.getWithHeader('admin/countries/', this.$store.state.auth.token)
+      .then((res) => {
+         res.data.map((data)=>{
+           this.countries.push(data);
+         });
+      })
+      .catch((e) => {
+        console.log('Country error', e);
+      });
   },
   methods: {
     submit() {
       if (this.valid) {
-        let userDetail = {
-          name: this.name,
-          email: this.email,
-          password: this.password
-        };
-        this.$store.dispatch("signupUserInFirebase", {
-          userDetail,
-          router: this.$router
-        });
+        // add password2 object key
+        this.user.password2 = this.user.password1;
+        axiosQueries.postWithHeader('rest-auth/registration/', this.user, this.$store.state.auth.token)
+			  .then(res => {
+					if(res.status == 201) {
+            this.error = false;
+            this.success = true;
+            this.successMsg = 'User has been added successfully';
+
+            this.user = {};
+          }else {
+
+          }
+				})
+				.catch(e => {
+          console.log('error', e);
+          this.success = false;
+          this.error = true;
+          this.errorMsg = e.message;	
+				});
       }
-    },
-    signInWithFacebook() {
-      this.$store.dispatch("signinUserWithFacebook", {
-        router: this.$router
-      });
-    },
-    signInWithGoogle() {
-      this.$store.dispatch("signinUserWithGoogle", {
-        router: this.$router
-      });
-    },
-    signInWithTwitter() {
-      this.$store.dispatch("signinUserWithTwitter", {
-        router: this.$router
-      });
-    },
-    signInWithGithub() {
-      this.$store.dispatch("signinUserWithGithub", {
-        router: this.$router
-      });
-    }
+		},
+		
   }
 };
 </script>
