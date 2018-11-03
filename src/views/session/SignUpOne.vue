@@ -192,6 +192,12 @@ export default {
 
 						this.user = {};
 						console.log('Suceess', res.data);
+						this.$notify({
+							type: 'success',
+              group: 'loggedIn',
+  						title: 'Successful sign up',
+  						text: 'User signed up successfully!'
+						});
           }else {
             console.log('e', res.data);
           }
