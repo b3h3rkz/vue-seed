@@ -4,6 +4,7 @@
 		  <h3 style="padding: 0px 0px; margin-bottom: 25px; margin-top: 30px; font-size: 25px; font-weight: bold"> Bitnob Signup</h3>
 		 <v-card class="login-card">
 			 <p class="login-msg">Sign up for a <strong> Bitnob </strong> account</p>
+			 <v-form v-model="valid">
 			 <v-text-field 
 			    prepend-icon="person"
 					label="First Name" 
@@ -23,11 +24,13 @@
 					label="Email" 
 					required
 					v-model="user.email"
+					:rules="emailRules"
 				></v-text-field>
 				<v-select 
 			    prepend-icon="flag"
 					label="Country" 
 					required
+					:items="countries"
 					item-value="id"
           item-text="name"
 					v-model="user.country"
@@ -43,6 +46,7 @@
 				></v-text-field>
 				<small><input type="checkbox" style="width: 10px; height: 10px; padding: 0px 0px !important; margin-top: 0px !important"> &nbsp; I Agree to Follow Terms and Privacy Policy</small>
 				<v-btn block class="login-btn"  @click="submit">Sign up<v-icon>check</v-icon> </v-btn>
+			 </v-form>
 		 </v-card>	
 			<center>Already have an account? <router-link to="/session/login" class="f-link"><h3>Sign In</h3></router-link></center>
 	 </div>	
@@ -163,7 +167,7 @@ export default {
     };
   },
 	 created() {
-    axiosQueries.getWithHeader('admin/countries/', this.$store.state.auth.token)
+    axiosQueries.getQuery('countries/')
       .then((res) => {
          res.data.map((data)=>{
            this.countries.push(data);
@@ -176,18 +180,20 @@ export default {
   methods: {
     submit() {
       if (this.valid) {
-        // add password2 object key
+				// add password2 object key
+				this.user.username = this.user.email;
         this.user.password2 = this.user.password1;
-        axiosQueries.postWithHeader('rest-auth/registration/', this.user, this.$store.state.auth.token)
+				axiosQueries.postQuery('rest-auth/registration/', this.user)
 			  .then(res => {
 					if(res.status == 201) {
             this.error = false;
             this.success = true;
             this.successMsg = 'User has been added successfully';
 
-            this.user = {};
+						this.user = {};
+						console.log('Suceess', res.data);
           }else {
-
+            console.log('e', res.data);
           }
 				})
 				.catch(e => {

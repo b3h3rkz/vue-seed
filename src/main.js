@@ -26,6 +26,7 @@ import fullscreen from 'vue-fullscreen'
 import InstantSearch from 'vue-instantsearch'
 import VueVideoPlayer from 'vue-video-player';
 import Croppa from 'vue-croppa';
+import { sync } from 'vuex-router-sync';
 
 // global components
 import GlobalComponents from './globalComponents'
@@ -41,6 +42,9 @@ import primaryTheme from './themes/primaryTheme';
 
 // store
 import { store } from './store/store';
+
+// Syncing router data to vuex
+sync(store, router);
 
 // firebase
 import './firebase'
