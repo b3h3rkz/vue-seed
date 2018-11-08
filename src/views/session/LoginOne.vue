@@ -19,7 +19,7 @@
 					:rules="passwordRules" 
 					required
 				></v-text-field>
-				<v-btn block class="login-btn">Login <v-icon>check</v-icon> </v-btn>
+				<v-btn block class="login-btn" @click="submit">Login <v-icon>check</v-icon> </v-btn>
 		 </v-card>	
 		  <center><router-link to="/session/forgot-password" class="f-link"><h3>Forgot Password?</h3></router-link></center>
 			<center>Don't have an account? <router-link to="/session/sign-up" class="f-link"><h3>Create One</h3></router-link></center>
@@ -108,6 +108,7 @@ import firebase from "firebase";
 import { mapGetters } from "vuex";
 import SessionSliderWidget from "Components/Widgets/SessionSlider";
 import AppConfig from "Constants/AppConfig";
+import axiosQueries from "../../axiosQueries";
 
 import AuthService from "../../auth/AuthService";
 
@@ -141,27 +142,34 @@ export default {
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch("signinUserInFirebase", {
+
+			axiosQueries.postQuery('rest-auth/login/', user)
+			 .then(res => {
+			   console.log(res);
+					/*  if(res.status == 201) {
+            this.error = false;
+            this.success = true;
+            this.successMsg = 'User has been added successfully';
+
+						this.user = {};
+						console.log('Suceess', res.data);
+						this.$notify({
+							type: 'success',
+              group: 'loggedIn',
+  						title: 'Successful sign up',
+  						text: 'User signed up successfully!'
+						});
+          }else {
+            console.log('e', res.data);
+					}
+					*/
+				})
+
+      /*
+			this.$store.dispatch("signinUserInFirebase", {
         user
       });
-    },
-    signInWithFacebook() {
-      this.$store.dispatch("signinUserWithFacebook");
-    },
-    signInWithGoogle() {
-      this.$store.dispatch("signinUserWithGoogle");
-    },
-    signInWithTwitter() {
-      this.$store.dispatch("signinUserWithTwitter");
-    },
-    signInWithGithub() {
-      this.$store.dispatch("signinUserWithGithub");
-    },
-    onCreateAccount() {
-      this.$router.push("/session/sign-up");
-    },
-    signinWithAuth0() {
-      login();
+			*/
     }
   }
 };

@@ -54,6 +54,7 @@
 <script>
 import SessionSliderWidget from "Components/Widgets/SessionSlider";
 import AppConfig from "Constants/AppConfig";
+import axiosQueries from "../../axiosQueries";
 
 export default {
   components: {
@@ -71,7 +72,12 @@ export default {
       ],
       appLogo: AppConfig.appLogo2
     };
-  }
+	},
+	methods: {
+		submit() {
+			axiosQueries.postQuery('rest-auth/password/reset/', this.email)
+		}
+	}
 };
 </script>
 <style scoped>
