@@ -14,7 +14,9 @@ import {
 
 const state = {
     user: localStorage.getItem('user'),
-    isUserSigninWithAuth0: Boolean(localStorage.getItem('isUserSigninWithAuth0'))
+    isUserSigninWithAuth0: Boolean(localStorage.getItem('isUserSigninWithAuth0')),
+    myUser: null,
+    token: null,
 }
 
 // getters
@@ -24,6 +26,9 @@ const getters = {
     },
     isUserSigninWithAuth0: state => {
         return state.isUserSigninWithAuth0;
+    },
+    getMyUser: state => {
+        return state.myUser;
     }
 }
 
@@ -119,6 +124,9 @@ const actions = {
     },
     signOutUserFromAuth0(context) {
         context.commit('signOutUserFromAuth0Success');
+    },
+    signIn({commit}, payload) {
+        commit('signIn', payload);
     }
 }
 
@@ -181,6 +189,11 @@ const mutations = {
     signOutUserFromAuth0Success(state) {
         state.user = null
         localStorage.removeItem('user')
+    },
+    signIn(state, data) {
+        state.myUser = data.user;
+        state.token = data.token;
+        router.push("/default/dashboard/home");
     }
 }
 

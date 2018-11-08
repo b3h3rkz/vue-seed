@@ -146,23 +146,25 @@ export default {
 			axiosQueries.postQuery('rest-auth/login/', user)
 			 .then(res => {
 			   console.log(res);
-					/*  if(res.status == 201) {
+					if(res.status == 200) {
             this.error = false;
             this.success = true;
-            this.successMsg = 'User has been added successfully';
+            // this.successMsg = 'Logged in successfully';
 
-						this.user = {};
+						this.email = "";
+						this.password = "";
 						console.log('Suceess', res.data);
 						this.$notify({
 							type: 'success',
               group: 'loggedIn',
-  						title: 'Successful sign up',
-  						text: 'User signed up successfully!'
+  						title: 'Successful log in',
+  						text: 'You have logged in successfully!'
 						});
+						this.$store.dispatch('signIn', res.data);
           }else {
             console.log('e', res.data);
 					}
-					*/
+
 				})
 
       /*

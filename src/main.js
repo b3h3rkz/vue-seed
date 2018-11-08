@@ -58,11 +58,30 @@ import './lib/VuelyCss'
 // messages
 import messages from './lang';
 
+// // navigation guards before each
+// router.beforeEach((to, from, next) => {
+// 	Nprogress.start()
+// 	next()
+// })
+
 // navigation guards before each
 router.beforeEach((to, from, next) => {
 	Nprogress.start()
-	next()
-})
+	if (to.matched.some(record => record.meta.requiresAuth)) {
+		// this route requires auth, check if logged in
+		// if not, redirect to login page.
+		if (store.state.auth.myUser === null) {
+			next({
+				path: '/session/login',
+				query: { redirect: to.fullPath }
+			})
+		} else {
+			next()
+		}
+	} else {
+		next() // make sure to always call next()!
+	}
+});
 
 // navigation guard after each
 router.afterEach((to, from) => {
